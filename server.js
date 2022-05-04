@@ -8,6 +8,7 @@ const { send } = require('process');
 
 const Movies = Models.Movie,
        Users = Models.User;
+       const uri = "mongodb+srv://viswhaCF:<password>@cluster0.t23va.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";   
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -332,4 +333,4 @@ app.use((err, req, res, next) => {
   });
 
 // listen for requests
-app.listen(8080, () => console.log('Your app is listening on port 8080'))
+app.listen(8090, () => console.log('Your app is listening on port 8080'))
