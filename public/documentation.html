@@ -1,165 +1,166 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>DOCUMENTATION</title>
-</head>
-
-<body class="container mt-3">
-    <h2>Documentation API</h2>
-    <P>To build the server-side component of a “movies” web application. The web
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie_API</title>
+  </head>
+  <body>
+      <h1>Movie_API</h1>
+      <h3>A movies web application</h3>
+      <h2>Objective</h2>
+      <p>To build the server-side component of a “movies” web application. The web
         application will provide users with access to information about different
         movies, directors, and genres. Users will be able to sign up, update their
-        personal information, and create a list of their favorite movies.
-    </P>
-    <div class="table-responsive-sm">
-        <table class="table table-bordered table-hover">
+        personal information, and create a list of their favorite movies.</p>
+
+        <div>
+
+          <h2>Essential Features</h2>
+
+          <table class="styled-table">
             <thead>
                 <tr>
-                    <h3>
-                        <th>Business Logic</th>
-                        <th>URL</th>
-                        <th>HTTP Method</th>
-                        <th>Query Parameters</th>
-                        <th>Request body data format</th>
-                        <th>Response body data format</th>
-                    </h3>
+                    <th>Request</th>
+                    <th>URL</th>
+                    <th>Method</th>
+                    <th>Query Parameters</th>
+                    <th>Request body data format</th>
+                    <th>Response body data format</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Return a list of All movies to the user</td>
+                    <td>Return a list of all the movies to the user</td>
                     <td>/movies</td>
                     <td>GET</td>
                     <td>None</td>
                     <td>None</td>
-                    <td>A JSON object holding data about all movies</td>
+                    <td>A JSON object holding all the data about all the movies</td>
                 </tr>
                 <tr>
                     <td>Return data about a single movie by title to the user</td>
                     <td>/movies/[title]</td>
                     <td>GET</td>
-                    <td>:Title</td>
+                    <td>:title</td>
                     <td>None</td>
-                    <td>JSON object holding data about the selected movie Ex:
-                        <pre>
-                        <code>
-                          {
-                            Title: string,
-                            Description: string,
-                            Genre: {
-                              name: string,
-                              description: string,
-                            },
-                            Director: {
-                              Name: string,
-                              Birth: string,
-                              Death: string,
-                              Bio: string,
-                            },
-                            Actors: string,
-                            imgURL: string,
+                    <td>A JSON object holding all the data about a single movie. Example:<br>
+                        {
+                            title: 'Inception',
+                            director: 'Christopher Nolan',
+                            genre: 'Sci-Fi'
+                          }      
+                    </td>
+                </tr>
+                <tr>
+                    <td>Return data about a genre by name</td>
+                    <td>movies/genre/[genre]</td>
+                    <td>GET</td>
+                    <td>:genre</td>
+                    <td>None</td>
+                    <td>A JSON object format containing movies belonging to a specific genre. Example: <br>
+                        {
+                            title: 'Shutter-Island',
+                            director: 'Martin Scorsese',
+                            genre: 'Suspense-Thriller'
+                          } <br>
+                        {
+                              title: 'The Fugitive',
+                              director: 'Andrew Davis',
+                              genre: 'Suspense-Thriller'
                           }
-                        </code>
-                      </pre>
                     </td>
                 </tr>
                 <tr>
-                    <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
-                    <td>/movies/genre/[genreName]</td>
+                    <td>Return data about a director by name</td>
+                    <td>/movies/director/[director]</td>
                     <td>GET</td>
-                    <td>:genreName</td>
+                    <td>:director</td>
                     <td>None</td>
-                    <td>A JSON object holding data about the selected genre. Example:
-                        <pre>
-                            <code>
+                    <td>A JSON format data holding all the data about a director by name. Example:<br>
+                        {
+                            name: 'Christopher Nolan',
+                            bio: 'A short Bio',
+                            dob: '30th July'
+                          }
+                        </td>
+                </tr>
+    
+                <tr>
+                    <td>Allow users to add a movie to their list of favorites</td>
+                    <td>/favourite/add/[id]/[title]</td>
+                    <td>POST</td>
+                    <td>:add</td>
+                    <td>A JSON format data containing all the new data about the movie to be added. Example:<br>
+                        {
+                        title: 'Wrath Of Man',
+                        director: 'Guy Ritchie',
+                        genre: 'Action-Thriller'
+                        }
+                    </td>
+                    <td>A JSON format data containing the newly added movie details. <br>
+                        {
+                            "id": 1,
+                            "fullname": "John Doe",
+                            "email": "johndoe@mail.com",
+                            "favMovies": [
                                 {
-                                    name: 'Thriller', 
-                                    description: ''
+                                    "title": "Inception",
+                                    "director": "Christopher Nolan",
+                                    "genre": "Sci-Fi"
+                                },
+                                {
+                                    "title": "Wrath Of Man",
+                                    "director": "Guy Ritchie",
+                                    "genre": "Action-Thriller"
                                 }
-                            </code> 
-                        </pre>
+                            ]
+                        }
+                    
                     </td>
                 </tr>
-                <tr>
-                    <td>Get a list of all users</td>
-                    <td>/users</td>
-                    <td>GET</td>
-                    <td>None</td>
-                    <td>None</td>
-                    <td>A JSON object holding data about all users, structured like:<br>
-                        <pre>
-                            <code>
-                                id: 1,
-                                username: "0val",
-                                email: "val.moul@gmail.com",
-                                password: "vt@rt2022!",
-                                birthday: "17/06/1990",
-                                favorites: [],
-                            </code>
-                        </pre>
-                    </td>
-                </tr>
+    
                 <tr>
                     <td>Allow new users to register</td>
-                    <td>/users</td>
+                    <td>/users/register</td>
                     <td>POST</td>
-                    <td>None</td>
-                    <td>A JSON object holding data about the user to add. Example:
-                        <pre>
-                            <code>
-                                { 
-                                    "username": "", 
-                                    "email": "", 
-                                    "password": ""
-                                    "birthday": "", 
-                                    "favorites": []            
-                                }
-                            </code>
-                        </pre>
-                    </td>
+                    <td>:register</td>
+                    <td>Data containing new user details</td>
+                    <td>A text response indicating that the registeration was successful</td>
+                </tr>
+    
                 <tr>
                     <td>Allow users to update their user info</td>
-                    <td>/users/[username]</td>
+                    <td>/users/update/[id]</td>
                     <td>PUT</td>
-                    <td>:Username</td>
-                    <td> A JSON object holding the new password. Ex:
-                        <pre>
-                            <code>
-                  { 
-                    "name": "susan",
-                    "password": "0000"
-                  }
-                            </code>
-                          </pre>
-                    </td>
-                    <td>JSON object with the updated user. Ex:
-                        <pre>
-                            <code>
-                  { 
-                    id: '1',
-                    name: 'susan', 
-                    password: "0000"
-                  }
-                            </code>
-                          </pre>
-                    </td>
+                    <td>:id</td>
+                    <td>Data containing changes to old profile</td>
+                    <td>A text response indicating that the changes were successfully deployed</td>
                 </tr>
+    
                 <tr>
-                    <td>Allow existing users to close account</td>
-                    <td>/users/[id]</td>
+                    <td>Allow users to remove a movie from their list of favorites</td>
+                    <td>/favourite/delete/[id]/[title]</td>
+                    <td>DELETE</td>
+                    <td>:id, :title</td>
+                    <td>None</td>
+                    <td>An array without the removed movie</td>
+                </tr>
+    
+                <tr>
+                    <td>Allow existing users to deregister</td>
+                    <td>/users/deregister/[id]</td>
                     <td>DELETE</td>
                     <td>:id</td>
                     <td>None</td>
-                    <td>A message indicating the user was deleted</td>
-                </tr>
+                    <td>A text response indicating that the user profile was successfully deregistered</td>
+                </tr>  
             </tbody>
         </table>
-    </div>
-    </div>
-</body>
 
-</html>
+        </div>
+       
+  </body>
+  
+  </html>

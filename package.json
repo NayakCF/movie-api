@@ -1,35 +1,31 @@
 {
   "name": "movie_api",
   "version": "1.0.0",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Scrapbandit/Movie_API.git"
+    "url": "git+https://github.com/NayakCF/movie_api.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Scrapbandit/Movie_API/issues"
+    "url": "https://github.com/NayakCF/movie_api/issues"
   },
-  "homepage": "https://github.com/Scrapbandit/Movie_API#readme",
-  "description": "",
+  "homepage": "https://github.com/NayakCF/movie_api#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.3",
-    "jsonwebtoken": "^8.5.1",
+    "eslint": "^8.14.0",
+    "express": "^4.18.1",
     "lodash": "^4.17.21",
-    "mongoose": "^6.3.0",
+    "mongoose": "^6.3.2",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.16",
-    "passport": "^0.5.2",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "save": "^2.5.0",
+    "nodemailer": "^6.7.3",
+    "nodemon": "^2.0.15",
     "uuid": "^8.3.2"
   }
 }
