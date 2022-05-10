@@ -1,5 +1,10 @@
+const express = require("express");
+const app = express();
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const passport = require('./passport');
+require('./passport');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -7,14 +12,12 @@ const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-const express = require("express");
-const res = require("express/lib/response");
-      morgan = require('morgan');
+const res = require("express/lib/response");     
 const path = require("path")
-const app = express();
-const PORT = 8080; 
 const uuid = require('uuid');
 const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+let auth = require('.auth')(app);
 
 app.use(bodyParser.json());
 
@@ -157,8 +160,8 @@ app.delete('/users/deregister/:id', (req, res) => {
 });
 
 //GET request for returning the personal message
-app.get("/", (req, res)=>{
-    res.send("welcome to my flix")
+app.get("/", (request, response)=>{
+    response.send("welcome to my flix")
 })
 
 app.get("/documentation", (req, res)=>{
@@ -189,5 +192,5 @@ app.use((err, req, res, next) => {
   });
 
 //Listen for request
-app.listen(PORT, ()=>console.log("App is running"));
+app.listen(8080, ()=>console.log("App is running"));
 
