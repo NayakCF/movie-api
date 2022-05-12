@@ -29,8 +29,3 @@ let movieSchema = mongoose.Schema({
   
   module.exports.Movie = Movie;
   module.exports.User = User;
-
-  let movieSchema = mongoose.Schema()
-
-  let userSchema = mongoose.Schema()
-  

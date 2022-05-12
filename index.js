@@ -1,25 +1,20 @@
-const express = require("express");
-const app = express();
-
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-const passport = require('./passport');
-require('./passport');
+morgan = require('morgan'),
+const uuid = require('uuid');
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
+const express = require("express");
+const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-
-const res = require("express/lib/response");     
-const path = require("path")
-const uuid = require('uuid');
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-let auth = require('.auth')(app);
-
-app.use(bodyParser.json());
 
 let users = [
   {
@@ -192,5 +187,5 @@ app.use((err, req, res, next) => {
   });
 
 //Listen for request
-app.listen(8998, ()=>console.log("App is running"));
+app.listen(8778, ()=>console.log("App is running"));
 
