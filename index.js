@@ -1,3 +1,5 @@
+const { check, validationResult } = require('express-validator');
+
 // imported modules/packages
 const express = require('express'),
     morgan = require('morgan'),
@@ -28,7 +30,10 @@ app.use(bodyParser.urlencoded({ extended: true})); //parsing headerbody
 const cors = require('cors'); // implements CORS in our API
 app.use(cors());
 
+const cors = require('cors');
+app.use(cors());
 let auth = require('./auth')(app); // imports our auth.js file
+
 const passport = require('passport'); // imports passport module
 require('./passport'); //imports our passport.js file
 
@@ -101,21 +106,40 @@ app.get('/movies/directors/:name', passport.authenticate('jwt', { session: false
 });
 
 // register a new user
-app.post('/users', 
-    // request body data validation
-    [
-        check('Username', 'Username is required').not().isEmpty(),
-        check('Username', 'Username contains non alphanumeric characters').isAlphanumeric(),
-        check('Password', 'Password is required').not().isEmpty(),
-        check('Email', 'Email is not valid').isEmail()
-    ], (req, res) => {
+app.post('/users', (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+    .then((user) => {
+      if (user) {
+      //If the user is found, send a response that it already exists
+        return res.status(400).send(req.body.Username + ' already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) => { res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
 
     // check validation object for errors
     let errors = validationResult(req);
 
     if(!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
-    }
+    };
 
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
@@ -141,7 +165,7 @@ app.post('/users',
             console.error(err);
             res.status(500).send('Error: ' + err);
         });
-});
+
 
 
 // update users information by username
@@ -274,6 +298,6 @@ app.use((err, req, res, next) => {
 
 // listen for requests
 const port = process.env.PORT || 8080;
-app.listen(port, '8080',() => {
+app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });

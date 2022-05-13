@@ -1,6 +1,6 @@
 // import mongoose as the app's ODM for MongoDB
 const mongoose = require('mongoose'),
-    bcrypt = require('bcrypt');
+Const bcrypt = require('bcrypt');
 
 // define schemas for movie and user documents
 let movieSchema = mongoose.Schema({
@@ -27,6 +27,13 @@ let userSchema = mongoose.Schema({
     Birthday: Date,
     FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
 });
+userSchema.statics.hashPassword = (password) => {
+  return bcrypt.hashSync(password, 10);
+};
+
+userSchema.methods.validatePassword = function(password) {
+  return bcrypt.compareSync(password, this.Password);
+};
 
 // hashes incoming passwords
 userSchema.statics.hashPassword = (password) => {
