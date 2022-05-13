@@ -1,166 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie_API</title>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Documentation for myFlix API</title>
   </head>
   <body>
-      <h1>Movie_API</h1>
-      <h3>A movies web application</h3>
-      <h2>Objective</h2>
-      <p>To build the server-side component of a “movies” web application. The web
-        application will provide users with access to information about different
-        movies, directors, and genres. Users will be able to sign up, update their
-        personal information, and create a list of their favorite movies.</p>
+  <p>  This application is the server-side component of a “movies” web application. The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
 
-        <div>
-
-          <h2>Essential Features</h2>
-
-          <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Request</th>
-                    <th>URL</th>
-                    <th>Method</th>
-                    <th>Query Parameters</th>
-                    <th>Request body data format</th>
-                    <th>Response body data format</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Return a list of all the movies to the user</td>
-                    <td>/movies</td>
-                    <td>GET</td>
-                    <td>None</td>
-                    <td>None</td>
-                    <td>A JSON object holding all the data about all the movies</td>
-                </tr>
-                <tr>
-                    <td>Return data about a single movie by title to the user</td>
-                    <td>/movies/[title]</td>
-                    <td>GET</td>
-                    <td>:title</td>
-                    <td>None</td>
-                    <td>A JSON object holding all the data about a single movie. Example:<br>
-                        {
-                            title: 'Inception',
-                            director: 'Christopher Nolan',
-                            genre: 'Sci-Fi'
-                          }      
-                    </td>
-                </tr>
-                <tr>
-                    <td>Return data about a genre by name</td>
-                    <td>movies/genre/[genre]</td>
-                    <td>GET</td>
-                    <td>:genre</td>
-                    <td>None</td>
-                    <td>A JSON object format containing movies belonging to a specific genre. Example: <br>
-                        {
-                            title: 'Shutter-Island',
-                            director: 'Martin Scorsese',
-                            genre: 'Suspense-Thriller'
-                          } <br>
-                        {
-                              title: 'The Fugitive',
-                              director: 'Andrew Davis',
-                              genre: 'Suspense-Thriller'
-                          }
-                    </td>
-                </tr>
-                <tr>
-                    <td>Return data about a director by name</td>
-                    <td>/movies/director/[director]</td>
-                    <td>GET</td>
-                    <td>:director</td>
-                    <td>None</td>
-                    <td>A JSON format data holding all the data about a director by name. Example:<br>
-                        {
-                            name: 'Christopher Nolan',
-                            bio: 'A short Bio',
-                            dob: '30th July'
-                          }
-                        </td>
-                </tr>
-    
-                <tr>
-                    <td>Allow users to add a movie to their list of favorites</td>
-                    <td>/favourite/add/[id]/[title]</td>
-                    <td>POST</td>
-                    <td>:add</td>
-                    <td>A JSON format data containing all the new data about the movie to be added. Example:<br>
-                        {
-                        title: 'Wrath Of Man',
-                        director: 'Guy Ritchie',
-                        genre: 'Action-Thriller'
-                        }
-                    </td>
-                    <td>A JSON format data containing the newly added movie details. <br>
-                        {
-                            "id": 1,
-                            "fullname": "John Doe",
-                            "email": "johndoe@mail.com",
-                            "favMovies": [
-                                {
-                                    "title": "Inception",
-                                    "director": "Christopher Nolan",
-                                    "genre": "Sci-Fi"
-                                },
-                                {
-                                    "title": "Wrath Of Man",
-                                    "director": "Guy Ritchie",
-                                    "genre": "Action-Thriller"
-                                }
-                            ]
-                        }
-                    
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td>Allow new users to register</td>
-                    <td>/users/register</td>
-                    <td>POST</td>
-                    <td>:register</td>
-                    <td>Data containing new user details</td>
-                    <td>A text response indicating that the registeration was successful</td>
-                </tr>
-    
-                <tr>
-                    <td>Allow users to update their user info</td>
-                    <td>/users/update/[id]</td>
-                    <td>PUT</td>
-                    <td>:id</td>
-                    <td>Data containing changes to old profile</td>
-                    <td>A text response indicating that the changes were successfully deployed</td>
-                </tr>
-    
-                <tr>
-                    <td>Allow users to remove a movie from their list of favorites</td>
-                    <td>/favourite/delete/[id]/[title]</td>
-                    <td>DELETE</td>
-                    <td>:id, :title</td>
-                    <td>None</td>
-                    <td>An array without the removed movie</td>
-                </tr>
-    
-                <tr>
-                    <td>Allow existing users to deregister</td>
-                    <td>/users/deregister/[id]</td>
-                    <td>DELETE</td>
-                    <td>:id</td>
-                    <td>None</td>
-                    <td>A text response indicating that the user profile was successfully deregistered</td>
-                </tr>  
-            </tbody>
-        </table>
-
-        </div>
-       
-  </body>
-  
-  </html>
+| **Business Logic** | **URL** | **HTTP Method** | **Request body data format** | **Response body data format** |
+| --- | --- | --- | --- | --- |
+| Return a list of ALL movies to the user | /movies | GET | None | JSON object holding data about all movies |
+| Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user | /movies/:Title | GET | None | JSON object holding data about a single movie by title to user. Eg:  <br>{  <br>"Genre": {  <br>"Name": "Action",  <br>"Description": "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats(Definition courtesy of Wikipedia)."  <br>},  <br>"Director": {  <br>"Name": "Joe Johnston",  <br>"Bio": "Started his career on the visual effects team working with George Lucas on Star Wars, who encouraged him to try his hand at directing. He enrolled in a film-making program while continuing to work with Lucas and Spielberg.",  <br>"Birth": "1950",  <br>"Death": "N/A"  <br>},  <br>"Actors": \[\],  <br>"_id": "62400f733a308ef48cb48fbf",  <br>"Title": "Captain America: The First Avenger",  <br>"Description": "It is 1941 and the world is in the throes of war. Steve Rogers (Chris Evans) wants to do his part and join America's armed forces, but the military rejects him because of his small stature. Finally, Steve gets his chance when he is accepted into an experimental program that turns him into a supersoldier called Captain America. Joining forces with Bucky Barnes (Sebastian Stan) and Peggy Carter (Hayley Atwell), Captain America leads the fight against the Nazi-backed HYDRA organization.(Summary courtesy of Rotten Tomatoes)",  <br>"ImagePath": "[http://www.movienewsletters.net/photos/277218R1.jpg"](http://www.movienewsletters.net/photos/277218R1.jpg),  <br>"Featured": true  <br>} |
+| Return data about a genre (description) by name/title (e.g., “Thriller”) | /genre/:Name | GET | None | A description of the genre Eg: "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats(Definition courtesy of Wikipedia)." |
+| Return data about a director (bio, birth year, death year) by name | /director/:Name | GET | None | JSON object holding info about Director eg: {  <br>"Name": "Joe Johnston",  <br>"Bio": "Started his career on the visual effects team working with George Lucas on Star Wars, who encouraged him to try his hand at directing. He enrolled in a film-making program while continuing to work with Lucas and Spielberg.",  <br>"Birth": "1950",  <br>"Death": "N/A"  <br>} |
+| Allow new users to register | /users | POST | JSON object holding data about the new user to add, structured like:  <br>{  <br>"Username":"test1",  <br>"Password": "none",  <br>"Email": "[none@gmail.com](mailto:none@gmail.com)",  <br>"Birthday" : "2022-04-03"  <br>} | JSON object holding data about the new user that was added, structured like: {  <br>"Username": "test1",  <br>"Password": "none",  <br>"Email": "[none@gmail.com](mailto:none@gmail.com)",  <br>"Birthday": "2022-04-03T00:00:00.000Z",  <br>"FavouriteMovies": \[\],  <br>"_id": "62493b9ee76f1fce7f1611d5",  <br>"__v": 0  <br>}  <br> |
+| Allow users to update their user info (username) | /users/:Username | UPDATE | JSON object containing new user name. Eg:  <br>{  <br>"Username": "test1_updated"  <br>} | JSON object containing updated user name Eg: {  <br>"_id": "62493b9ee76f1fce7f1611d5",  <br>"Username": "test1_updated",  <br>"Password": "none",  <br>"Email": "none@gmail.com",  <br>"Birthday": "2022-04-03T00:00:00.000Z",  <br>"FavouriteMovies": \[  <br>"62400abf3a308ef48cb48fbe"  <br>\],  <br>"__v": 0  <br>} |
+| Allow users to add a movie to their list of favorites (showing only a text that a movie has been added) | /users/:Username/movies/:MovieID | PUT | URL containing username of user and name of movie to be added | A string saying the movie has been added to favourites. |
+| Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed) | /users/:Username/movies/:MovieID | DELETE | URL containing username of user and name of movie to be deleted | A string saying the movie has been deleted |
+| Allow existing users to deregister (showing only a text that a user email has been removed—more on this later) | /users/:Username | DELETE | URL containing ID of user to be removed | A string saying the user has been removed | </p>
+</html>
