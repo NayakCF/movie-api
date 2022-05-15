@@ -12,10 +12,8 @@ const express = require('express'),
 app.use(bodyParser.json());
 
 const cors = require('cors');
-app.use(cors());
 
 // To allow certain origins to be given access to make requests
-
 let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://sana-movie-app.herokuapp.com'];
 
 app.use(cors({
@@ -38,22 +36,10 @@ const passport = require('passport');
 require('./passport');
 
 // Code for connecting local database on comp to api. Will comment in for testing locally on Postman
-//mongoose.connect('mongoimport --uri mongodb+srv://nayakvishwanath:Vish1984@cluster0.dpr2f.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }); 
+mongoose.connect('mongodb+srv://nayakvishwanath:Vish1984@cluster0.dpr2f.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }); 
 
 //code for connecting to online database (using atlas mongodb) using environment variables
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-//mongooseAtlas connection
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://nayakvishwanath:Vish1984@cluster0.dpr2f.mongodb.net/myFlixDB?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-
-
+//mongoose.connect('mongodb://localhost:27017/myflixdb77', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 //using morgan to log information about the requests using morgan's 'common' format
@@ -306,7 +292,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 
 
 //listen for requests
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8090;
 app.listen(port, '0.0.0.0', () => {
   console.log('Listening on Port ' + port);
 })
