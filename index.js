@@ -38,10 +38,21 @@ const passport = require('passport');
 require('./passport');
 
 // Code for connecting local database on comp to api. Will comment in for testing locally on Postman
-mongoose.connect('mongoimport --uri mongodb+srv://nayakvishwanath:Vish1984@cluster0.dpr2f.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }); 
+//mongoose.connect('mongoimport --uri mongodb+srv://nayakvishwanath:Vish1984@cluster0.dpr2f.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }); 
 
 //code for connecting to online database (using atlas mongodb) using environment variables
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+//mongooseAtlas connection
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://nayakvishwanath:Vish1984@cluster0.dpr2f.mongodb.net/myFlixDB?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
 
 
 
